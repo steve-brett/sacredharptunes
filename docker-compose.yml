@@ -1,0 +1,25 @@
+version: "3"
+services:
+  php55:
+    image: php:5.5-cli
+    tty: true
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    volumes:
+      - ./web:/var/www/html
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    ports:
+      - 3306:3306
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+volumes:
+  db-data: {}
